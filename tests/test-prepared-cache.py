@@ -48,7 +48,7 @@ class PreparedCacheTests(unittest.TestCase):
         self.bin = self.root / "bin"
         self.bin.mkdir()
         # Isolate transport/compression; all source and harvest verification is real.
-        self.executable(self.bin / "docker", """#!/bin/sh
+        self.executable(self.bin / "container", """#!/bin/sh
 set -eu
 touch "$TEST_ROOT/docker-called"
 cp "$TEST_ROOT/payload/boot-prefix.img" "$TEST_WORK/boot-prefix.img"

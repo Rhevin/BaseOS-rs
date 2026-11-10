@@ -20,7 +20,7 @@ Pre-releases are built from `main`.
 
 ## What you need
 
-- A Mac with Docker or OrbStack. Every build step runs in an unprivileged
+- A Mac with Apple `container`. Every build step runs in an unprivileged
   Alpine container, so the Mac needs no sudo and no loop mounts.
 - No vendor firmware. `./fetch-prepared.sh` downloads the prepared inputs for
   every model as one bundle, instead of a 12 GB vendor image per model. You

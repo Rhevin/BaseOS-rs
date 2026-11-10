@@ -76,7 +76,7 @@ done
 # against compressing the two groups as separate streams (133 MB vs 150 MB).
 # That is not worth a second stream, a second hash and a second decompress
 # pipeline in fetch-prepared.sh for a download developers do once.
-docker run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/work":/work -e TARGETS="$TARGETS" -e NAME="$NAME" \
   alpine:3.20 sh -euc '
   apk add -q tar zstd

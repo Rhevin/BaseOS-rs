@@ -22,7 +22,7 @@ python3 "$HERE/tools/device_profile.py" shell "$TARGET" >/dev/null
 WORK="$HERE/work/$TARGET"
 [ -f "$WORK/rootfs.tar" ] || { echo "missing $WORK/rootfs.tar (run build-rootfs.sh $TARGET)"; exit 1; }
 
-docker run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$WORK":/work -e TARGET="$TARGET" alpine:3.20 sh -euc '
   apk add -q qemu-system-aarch64
 
