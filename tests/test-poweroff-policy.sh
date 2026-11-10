@@ -3,7 +3,7 @@
 set -eu
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 . "$HERE/tools/docker-platform.sh"
-docker run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE":/repo:ro alpine:3.20 sh -euc '
   apk add -q build-base linux-headers python3 busybox-static
   gcc -static -O2 -Wall -Wextra -Werror -o /tmp/axp-test /repo/tests/axp-off-test.c

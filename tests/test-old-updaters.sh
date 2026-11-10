@@ -19,7 +19,7 @@ for version in v1.0.0 v1.1.0 v1.2.0 v1.2.1 v1.3.0 v1.4.0 b77c0be; do
     || : > "$OLD/$version/boot-log.sh"
 done
 
-docker run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE":/repo:ro -v "$OLD":/old:ro alpine:3.20 sh -euc '
   SLOT_BYTES=8388608 SLOT_SECTORS=16384
   mkdir -p /mnt/sdcard /data /dev /usr/sbin /usr/share/baseos /usr/local/bin

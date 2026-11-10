@@ -12,7 +12,7 @@ python3 "$HERE/tools/audio_module.py" prepare "$TARGET"
 CACHE="$HERE/work/audio-build"
 mkdir -p "$CACHE"
 # This compiler is the GCC 8.3 H700 toolchain used to validate the vendor ABI.
-docker run --rm --platform linux/arm64 \
+container run --rm --platform linux/arm64 \
   -v "$OUT":/out -v "$CACHE":/cache \
   ghcr.io/loveretro/h700-toolchain@sha256:bf5d8f9f5442cad789aa77176bc059ec823caefa3258bf30780eee681c777119 \
   sh -euc '
