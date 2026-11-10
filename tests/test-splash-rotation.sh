@@ -43,7 +43,7 @@ EOF
 
 # The RG28XX is the reason this exists: a 480x640 panel held in landscape, so
 # 640x480 of layout turned 90 degrees counter-clockwise onto it.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/src":/src:ro -v "$HERE/assets":/assets:ro -v "$TMP":/out \
   alpine:3.20 sh -euc '
   apk add -q build-base linux-headers pkgconf freetype-dev freetype-static \

@@ -12,7 +12,7 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Host-native: gptslot is plain C with no device dependency, so the host-arch
 # build exercises exactly the same logic as the aarch64 one.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/tools":/src:ro alpine:3.20 sh -euc '
   apk add -q build-base python3
   gcc -static -O2 -I/src -o /usr/local/bin/gptslot /src/gptslot.c

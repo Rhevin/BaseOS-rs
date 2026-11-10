@@ -8,7 +8,7 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=tools/docker-platform.sh
 . "$HERE/tools/docker-platform.sh"
 
-container run --rm -i --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm -i --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/overlay/usr/sbin/frontend-session":/usr/sbin/frontend-session:ro \
   -v "$HERE/overlay/usr/share/baseos/boot-log.sh":/usr/share/baseos/boot-log.sh:ro \
   alpine:3.20 sh -eu <<'TEST'

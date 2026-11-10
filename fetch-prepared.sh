@@ -120,7 +120,7 @@ echo "bundle SHA-256 OK"
 BUNDLE_DIR="$(cd "$(dirname "$BUNDLE")" && pwd)"
 # Host-native: tar and zstd only. --long=31 must be repeated on decompression;
 # the frame's window is larger than the decoder's default budget.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run -m 4G --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/work":/work -v "$BUNDLE_DIR":/bundle:ro \
   -e RESTORE="$RESTORE" -e NAME="$(basename "$BUNDLE")" \
   alpine:3.20 sh -euc '

@@ -11,7 +11,7 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=tools/docker-platform.sh
 . "$HERE/tools/docker-platform.sh"
 
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE":/repo:ro \
   -v "$HERE/overlay/usr/sbin/baseos-update":/baseos-update-source:ro \
   -v "$HERE/overlay/usr/share/baseos/boot-log.sh":/usr/share/baseos/boot-log.sh:ro \

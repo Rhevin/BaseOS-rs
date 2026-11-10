@@ -8,7 +8,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 . "$HERE/tools/docker-platform.sh"
 
 # Host-native: synthetic prepare tests never execute aarch64 device ELFs.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE":/src:ro alpine:3.20 sh -euc '
   apk add -q python3 e2fsprogs e2fsprogs-extra busybox-static dosfstools tar
   T=/tmp/baseos-prepare-test

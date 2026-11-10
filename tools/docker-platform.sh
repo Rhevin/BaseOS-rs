@@ -7,6 +7,19 @@
 
 BASEOS_DOCKER_PLATFORM_AARCH64=linux/arm64
 
+# Device-sized limit. devices.json has no RAM field. docs/06 records the RG28XX
+# as 1 GiB LPDDR4; the RG SP runs use the same 1G. fetch-prepared.sh and
+# cache-pack.sh pass -m 4G because zstd --long=31 needs a 2 GiB window, and 1G
+# kills tar mid-extract.
+BASEOS_CONTAINER_MEMORY=1G
+
+container_run() {
+  case " $* " in
+    *" -m "*|*" --memory "*) command container run "$@" ;;
+    *) command container run -m "$BASEOS_CONTAINER_MEMORY" "$@" ;;
+  esac
+}
+
 case "$(uname -m)" in
   arm64|aarch64) BASEOS_DOCKER_PLATFORM_HOST=linux/arm64 ;;
   x86_64|amd64)  BASEOS_DOCKER_PLATFORM_HOST=linux/amd64 ;;

@@ -21,7 +21,9 @@ Pre-releases are built from `main`.
 ## What you need
 
 - A Mac with Apple `container`. Every build step runs in an unprivileged
-  Alpine container, so the Mac needs no sudo and no loop mounts.
+  Alpine container, so the Mac needs no sudo and no loop mounts. Device steps
+  get 1G RAM. `fetch-prepared.sh` and `cache-pack.sh` get 4G, because
+  `zstd --long=31` needs a 2 GiB window.
 - No vendor firmware. `./fetch-prepared.sh` downloads the prepared inputs for
   every model as one bundle, instead of a 12 GB vendor image per model. You
   need a vendor image only to add a model or to move a model to a new vendor

@@ -42,7 +42,7 @@ eval "$(python3 "$HERE/tools/source_manifest.py" shell "$WORK/source.json" "$TAR
 
 echo "--- 2/3. p1 is an empty ext4, p3 still defers to the GPT"
 # Host-native: dd, debugfs and grep only, no device code runs here.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$WORK":/work:ro \
   -e P1_START="$SOURCE_P1_START" -e P1_SECTORS="$SOURCE_P1_SECTORS" \
   -e P3_START="$SOURCE_P3_START" -e P3_SECTORS="$SOURCE_P3_SECTORS" \

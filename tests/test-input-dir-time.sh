@@ -8,7 +8,7 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=tools/docker-platform.sh
 . "$HERE/tools/docker-platform.sh"
 
-container run --rm -i --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm -i --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/overlay/etc/init.d/rcS":/rcS:ro alpine:3.20 sh -eu <<'TEST'
 line=$(grep -n '^/bin/touch -c -d @1 /dev/input' /rcS | cut -d: -f1)
 [ -n "$line" ] || { echo 'FAIL: rcS does not set the /dev/input time'; exit 1; }

@@ -41,7 +41,7 @@ python3 "$HERE/tools/kernel_gzip.py" prepare "$TARGET" "$WORK/boot-prefix.img" "
 # Every released rootfs must contain the module built for this exact vendor kernel.
 "$HERE/build-audio-module.sh" "$TARGET"
 
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
   -v "$WORK":/work -v "$TOOLS":/tools:ro \
   -v "$HERE/tools/strip_gpu_module.py":/build/strip_gpu_module.py:ro \
   -v "$HERE/overlay":/overlay:ro -v "$HERE/assets":/assets:ro \
