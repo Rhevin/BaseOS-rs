@@ -6,7 +6,7 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 [ "$#" -le 1 ] || { echo "usage: $0 [PROPOSED_RCS]" >&2; exit 2; }
 RCS=${1:-$HERE/overlay/etc/init.d/rcS}
 [ -f "$RCS" ] || { echo "missing rcS: $RCS" >&2; exit 2; }
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
     -v "$HERE":/repo:ro -v "$RCS":/proposed-rcS:ro \
     alpine:3.20 sh -euc '
     apk add -q build-base linux-headers python3 busybox-static

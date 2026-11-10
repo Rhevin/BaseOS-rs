@@ -20,7 +20,7 @@ mkdir -p "$(dirname "$OUT")"
 
 # Host-native: compiles a host test binary and writes a BMP. Explicit host
 # platform avoids a cached arm64 image on Intel.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$BASE/src":/src:ro -v "$BASE/assets":/assets:ro \
   -v "$BASE/work/$TARGET":/out \
   -e WIDTH="$PROFILE_BOOTLOGO_WIDTH" -e HEIGHT="$PROFILE_BOOTLOGO_HEIGHT" \

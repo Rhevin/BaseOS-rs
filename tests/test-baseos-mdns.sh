@@ -6,7 +6,7 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 if [ "$(uname -s)" != Linux ]; then
 	# macOS has no flock; use the same BusyBox shell/applets as the image.
 	. "$HERE/tools/docker-platform.sh"
-	exec container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+	exec container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
 		-v "$HERE:/src:ro" alpine:3.20 sh /src/tests/test-baseos-mdns.sh
 fi
 

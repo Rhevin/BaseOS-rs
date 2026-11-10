@@ -8,7 +8,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 
 # Host-native: shell scripts and stand-ins only. The disposable block nodes are
 # never opened: partition changes, formatting and mounts are all stubbed.
-container run --rm -i --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm -i --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$HERE/overlay/usr/sbin/expand-storage":/test/expand-storage:ro \
   -v "$HERE/assets/baseos.conf":/usr/share/baseos/baseos.conf:ro \
   -v "$HERE/overlay/usr/share/baseos/boot-log.sh":/usr/share/baseos/boot-log.sh:ro \

@@ -29,7 +29,7 @@ mkdir -p "$TOOLS"
 # Do not let an obsolete reconnect helper linger in a reused tools directory.
 rm -f "$TOOLS/usb-gadget-watch"
 
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
   apk add -q busybox-static
   cp /bin/busybox.static /out/busybox
 
@@ -47,7 +47,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out
 # curl: NextUI's HTTP layer invokes the CLI for RetroAchievements. Build it in
 # a clean container so it cannot inherit configure state from another tool.
 # The pinned static binary carries no StockMod or frontend ABI dependency.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
   apk add -q build-base ca-certificates tar xz perl \
     openssl-dev openssl-libs-static zlib-dev zlib-static
   CURL_VERSION=8.21.0
@@ -72,7 +72,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out
 '
 
 # fbsplash: framebuffer boot splash (Lexend wordmark via freetype).
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
   -v "$TOOLS":/out -v "$HERE/src":/src:ro alpine:3.20 sh -euc '
   apk add -q build-base linux-headers pkgconf \
     freetype-dev freetype-static zlib-static libpng-static bzip2-static brotli-static
@@ -85,7 +85,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
 # fill the card on first boot (see tools/gptgrow.c).
 # gptslot: A/B root-slot arithmetic — derives the slot geometry from the GPT
 # and flips partition 5 between the two halves (see tools/gptslot.c).
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
   -v "$TOOLS":/out -v "$HERE/tools":/src:ro alpine:3.20 sh -euc '
   apk add -q build-base linux-headers
   gcc -static -O2 -o /out/gptgrow /src/gptgrow.c
@@ -95,7 +95,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
 '
 
 # Early boot helpers: PMIC shutdown, charger input, timing and native acceptance.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
   -v "$TOOLS":/out -v "$HERE/src":/src:ro alpine:3.20 sh -euc '
   apk add -q build-base linux-headers
   gcc -static -O2 -Wall -Wextra -o /out/axp-off /src/axp-off.c
@@ -110,7 +110,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
 # BaseOS boots without it, so rcS runs this checker itself, and only when the
 # filesystem carries recorded errors. Built alone and static; nothing else from
 # e2fsprogs ships.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
   apk add -q build-base linux-headers ca-certificates tar xz
   E2FS_VERSION=1.47.2
   E2FS_SHA256=08242e64ca0e8194d9c1caad49762b19209a06318199b63ce74ae4ef2d74e63c
@@ -133,7 +133,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out
 # SFTPSERVER_PATH=/usr/libexec/sftp-server, so the transport (owned by dropbear)
 # hands each sftp session to this OpenSSH helper. It needs no crypto of its own,
 # so build it without OpenSSL and without zlib for a small static binary.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out alpine:3.20 sh -euc '
   apk add -q build-base linux-headers ca-certificates zlib-dev zlib-static
   OPENSSH_VERSION=10.4p1
   OPENSSH_SHA256=ef6026dd2aea8d56059638d5d3262902c892ceba9f88395835e0d06d3fb63238
@@ -155,7 +155,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" -v "$TOOLS":/out
 # source tree, apply the Debian quilt series, then apply the Buildroot patch
 # series plus the BaseOS-local patches (see src/adbd-patches). The result serves
 # adb over USB FunctionFS only (no network listener) and stays root.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
   -v "$TOOLS":/out -v "$HERE/src/adbd-patches":/patches:ro alpine:3.20 sh -euc '
   apk add -q build-base linux-headers pkgconf ca-certificates tar xz patch \
     openssl-dev openssl-libs-static zlib-dev zlib-static bsd-compat-headers
@@ -188,7 +188,7 @@ container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
 # avahi-daemon: fully static (musl), without D-Bus. Runtime configuration limits
 # publishing to the WiFi hostname/address records; no static service definitions
 # are shipped. Build just libdaemon's library: its legacy tests need glibc headers.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_AARCH64" \
   -v "$TOOLS":/out alpine:3.20 sh -euc '
   apk add -q build-base pkgconf \
     expat-dev expat-static libevent-dev libevent-static linux-headers

@@ -33,7 +33,7 @@ trap 'rm -f "$CARD"' EXIT INT TERM
 rm -f "$CARD"
 cp -c "$IMAGE" "$CARD" 2>/dev/null || cp "$IMAGE" "$CARD"
 
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$WORK":/work:ro -v "$HERE/tools":/src:ro \
   -v "$CARD":/dev/mmcblk0 \
   -v "$HERE/overlay/usr/sbin/baseos-update":/usr/sbin/baseos-update:ro \

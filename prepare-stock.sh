@@ -20,7 +20,7 @@ mkdir -p "$HERE/work/$TARGET"
 
 # Host-native: prepare only runs python/debugfs/BusyBox path work, not aarch64
 # device ELFs. Explicit host platform avoids a cached arm64 image on Intel.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$IMAGE_DIR":/input:ro \
   -v "$HERE/work":/work \
   -v "$HERE/tools":/tools:ro \

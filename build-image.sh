@@ -68,7 +68,7 @@ PRIMARY_SECTORS=$((TOTAL_SECTORS - 4 - PRIMARY_START + 1))
 
 # Host-native: image compose is mke2fs/mksquashfs/mkfs.vfat/GPT/tar only (aarch64
 # work is earlier). Explicit host platform avoids a cached arm64 image on Intel.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$WORK":/work -v "$HERE/tools":/tools:ro \
   -v "$HERE":/repo:ro \
   -v "${NATIVE_RELEASE:-$HERE}":/native-release:ro -e NATIVE_RELEASE="$NATIVE_RELEASE" \

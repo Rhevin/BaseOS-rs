@@ -20,7 +20,7 @@ BASEOS_BUILD="$(git -C "$HERE" describe --always --dirty 2>/dev/null || echo unk
 OUT="$WORK/baseos-$TARGET-$BASEOS_VERSION.bosupd"
 
 # Read filesystem metadata with the same ext4 tools used to compose the image.
-container run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
+container_run --rm --platform "$BASEOS_DOCKER_PLATFORM_HOST" \
   -v "$WORK":/work -v "$HERE/tools":/tools:ro alpine:3.20 sh -euc '
   apk add -q python3 e2fsprogs-extra
   python3 /tools/mkupdate.py "/work/$1" "$2" "$3" "$4" "/work/$5"

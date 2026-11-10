@@ -2,6 +2,8 @@
 # Build an audited H700 audio module against the target's vendor config/CRCs.
 set -eu
 HERE="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=tools/docker-platform.sh
+. "$HERE/tools/docker-platform.sh"
 TARGET="${1:?usage: $0 <target>}"
 [ "$#" -eq 1 ] || { echo "usage: $0 <target>" >&2; exit 2; }
 OUT="$HERE/work/$TARGET/audio-module"
@@ -12,7 +14,7 @@ python3 "$HERE/tools/audio_module.py" prepare "$TARGET"
 CACHE="$HERE/work/audio-build"
 mkdir -p "$CACHE"
 # This compiler is the GCC 8.3 H700 toolchain used to validate the vendor ABI.
-container run --rm --platform linux/arm64 \
+container_run --rm --platform linux/arm64 \
   -v "$OUT":/out -v "$CACHE":/cache \
   ghcr.io/loveretro/h700-toolchain@sha256:bf5d8f9f5442cad789aa77176bc059ec823caefa3258bf30780eee681c777119 \
   sh -euc '
